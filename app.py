@@ -4,9 +4,9 @@ This module designs and implement a simple static database with Flask applicatio
 
 import json
 import uuid
-from typing import Dict
 
 from flask import Flask, jsonify, request
+
 from db import stores, items
 
 app = Flask(__name__)
@@ -59,7 +59,7 @@ def add_store() -> json:
     """
     store_data_received = request.get_json()
     store_id = uuid.uuid4().hex
-    store = {**store_data_received, 'Store_ID': store_id}
+    store = {**store_data_received, "Store_ID": store_id}
     stores[store_id] = store
     return jsonify(store), {"Success": " Store Added"}
 
@@ -67,17 +67,18 @@ def add_store() -> json:
 @app.route("/add_item", methods=["POST"])
 def add_item() -> json:
     """
-    Handle requests to the 127.0.0.1:5000/add_item page to add an item. We expect the add_item request
+    Handle requests to the 127.0.0.1:5000/add_item page to add an item.
+    We expect the add_item request
     to hold the store_id along with request such that items gets added to the correct store.
 
     Returns:
         Response object: JSON response for single item added if successful; else Error Message.
     """
     item_data_received = request.get_json()
-    if item_data_received['Store_ID'] not in stores:
-        return {'Error!': 'Store not found'}, 404
+    if item_data_received["Store_ID"] not in stores:
+        return {"Error!": "Store not found"}, 404
     item_id = uuid.uuid4().hex
-    item = {**item_data_received, 'Item_ID': item_id}
+    item = {**item_data_received, "Item_ID": item_id}
     items[item_id] = item
     return jsonify(item), {"Success": " Item Added"}
 

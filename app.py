@@ -20,7 +20,13 @@ def home():
     Returns:
         Response object: JSON response with a welcome message.
     """
-    return jsonify(message="Welcome! The website is under construction."), 200
+    return (
+        jsonify(
+            message="Welcome! The website is under construction. Modifications are reflected"
+                    "in the container"
+        ),
+        200,
+    )
 
 
 @app.route("/stores", methods=["GET"])
